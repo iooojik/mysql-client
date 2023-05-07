@@ -1,4 +1,4 @@
-module mysql_client
+module github.com/iooojik/mysql-client
 
 go 1.20
 
