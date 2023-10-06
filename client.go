@@ -13,6 +13,7 @@ type Config struct {
 }
 
 type Client struct {
+	EnableLogs bool
 	Connection *sql.DB
 }
 
@@ -37,12 +38,16 @@ func (c *Client) GetStat() sql.DBStats {
 }
 
 func (c *Client) Query(query string, args ...any) (*sql.Rows, error) {
-	logger.LogDebug("executing", query, args)
+	if c.EnableLogs {
+		logger.LogDebug("executing", query, args)
+	}
 	return c.Connection.Query(query, args...)
 }
 
 func (c *Client) Execute(query string, args ...any) (sql.Result, error) {
-	logger.LogDebug("executing", query, args)
+	if c.EnableLogs {
+		logger.LogDebug("executing", query, args)
+	}
 	return c.Connection.Exec(query, args...)
 }
 
